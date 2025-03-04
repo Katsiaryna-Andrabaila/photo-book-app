@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Photo, useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
@@ -51,11 +53,13 @@ export const MainPage = () => {
                 placeholder="Search..."
                 onChange={handleSearch}
             />
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                {cards?.map((el) => (
-                    <Card key={el.id} card={el} />
-                ))}
-            </div>
+            <DndProvider backend={HTML5Backend}>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                    {cards?.map((el) => (
+                        <Card key={el.id} card={el} />
+                    ))}
+                </div>
+            </DndProvider>
         </div>
     );
 };
