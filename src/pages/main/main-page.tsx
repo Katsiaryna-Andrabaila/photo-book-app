@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { useGetPhotosQuery } from "@/app/api";
+import { Photo, useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
 
 export const MainPage = () => {
     const { data, isLoading  } = useGetPhotosQuery(50);
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
-    const [cards, setCards] = useState(() => data);
+    const [cards, setCards] = useState<Photo[] | undefined>();
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -26,18 +26,25 @@ export const MainPage = () => {
     useEffect(() => {
         if (debouncedSearch) {
           setCards(data?.filter((el) => el.title.includes(debouncedSearch)));
+          return;
         }
+        setCards(data);
     }, [debouncedSearch, data]);
 
     if (isLoading) {
-        return <p className="w-dvw mt-20 mb-17 text-center text-gray-700 text-3xl">Loading...</p>;
+        return (
+            <p className="w-dvw mt-20 mb-17 text-center text-gray-700 dark:text-gray-200 text-3xl">
+                Loading...
+            </p>
+        );
     }
 
     return (
         <div className="flex flex-col gap-4 w-9/10 min-h-dvh mx-auto mt-20 mb-17">
             <input
                 type="search"
-                className="w-1/4 h-10 border border-gray-300 focus:border-gray-700 focus:outline-none px-2 text-gray-700"
+                className="w-1/4 h-10 border border-gray-300 focus:border-gray-700 dark:focus:border-gray-100
+                          focus:outline-none px-2 text-gray-700 dark:text-gray-200"
                 placeholder="Search..."
                 onChange={handleSearch}
             />

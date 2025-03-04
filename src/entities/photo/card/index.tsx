@@ -12,7 +12,7 @@ export const Card = ({ id, title, url }: CardProps) => {
             to={`/detail/${id}`}
             className="relative flex flex-col gap-2 h-50 sm:h-70 border border-gray-300 py-2 transform hover:scale-102 transition-all duration-300 ease"
         >
-            <h2 className="text-center text-gray-700">{title}</h2>
+            <h2 className="text-center text-gray-700 dark:text-gray-200">{title}</h2>
             <img
                 src={url}
                 alt={`image ${id}`}
