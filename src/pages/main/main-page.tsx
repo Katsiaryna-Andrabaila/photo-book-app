@@ -11,7 +11,6 @@ export const MainPage = () => {
     const { data, isLoading } = useGetPhotosQuery(limit);
     const [search, setSearch] = useState('');
     const cards = useDebounced(data, search);
-    console.log(limit)
 
     const loadMore = useCallback(() => {
         setLimit((prev) => prev + 50);
