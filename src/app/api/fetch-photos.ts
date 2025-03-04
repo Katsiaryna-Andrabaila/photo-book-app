@@ -11,8 +11,8 @@ export const fetchPhotos = createApi({
         baseUrl: BASE_URL,
     }),
     endpoints: (build) => ({
-        getPhotos: build.query<Photo[], string>({
-            query: (limit = '') => limit ? `?_limit=${limit}` : '',
+        getPhotos: build.query<Photo[], number>({
+            query: (limit) => limit ? `?_limit=${limit}` : '',
         }),
     }),
 });

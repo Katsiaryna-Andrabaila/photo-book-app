@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { fetchPhotos } from '../api';
+
 const setupStore = () =>
     configureStore({
-        reducer: {},
+        reducer: {
+            [fetchPhotos.reducerPath]: fetchPhotos.reducer,
+        },
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware()
+            getDefaultMiddleware().concat(fetchPhotos.middleware)
     });
 
 export const store = setupStore();

@@ -34,9 +34,9 @@ export const Header = () => {
     return (
         <header ref={ref} className={clsx([
             'fixed top-0 left-0 right-0 z-1 transition duration-300 ease',
-            scrollBg && 'bg-gray-100',
+            scrollBg && 'bg-gray-100 opacity-90',
         ])}>
-            <div className="flex justify-between align-center h-auto w-9/10 mx-auto my-4">
+            <div className="flex justify-between align-center h-auto w-9/10 mx-auto my-3">
                 <Link to="/" className="font-[Alex_Brush] text-4xl">
                     Gallery
                 </Link>
