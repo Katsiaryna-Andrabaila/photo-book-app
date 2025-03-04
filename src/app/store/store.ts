@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { fetchPhotos } from '../api';
+import { setCardsStateSlice } from './cards-reducer';
 
 const setupStore = () =>
     configureStore({
         reducer: {
+            cardsState: setCardsStateSlice.reducer,
             [fetchPhotos.reducerPath]: fetchPhotos.reducer,
         },
         middleware: (getDefaultMiddleware) =>

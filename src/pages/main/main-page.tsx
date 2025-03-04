@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 
 import { Photo, useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
+import { setCardsState, useAppDispatch } from "@/app/store";
 
 export const MainPage = () => {
     const { data, isLoading  } = useGetPhotosQuery(50);
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [cards, setCards] = useState<Photo[] | undefined>();
+    const dispatch = useAppDispatch();
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -29,7 +31,8 @@ export const MainPage = () => {
           return;
         }
         setCards(data);
-    }, [debouncedSearch, data]);
+        dispatch(setCardsState(data || []));
+    }, [debouncedSearch, data, dispatch]);
 
     if (isLoading) {
         return (

@@ -11,7 +11,7 @@ interface Route {
 
 export const routes: Route[] = [
     { path: '/', component: MainPage },
-    { path: '/gallery/:id', component: DetailPage },
+    { path: '/detail/:id', component: DetailPage },
     { path: '/favorites', component: FavoritesPage },
     { path: '/404', component: NotFoundPage },
 ];
