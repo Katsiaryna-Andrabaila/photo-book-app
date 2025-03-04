@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Photo, useGetPhotosQuery } from "@/app/api";
+import { useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
-import { setCardsState, useAppDispatch } from "@/app/store";
+import { useDebounced } from "@/shared/hooks";
 
 export const MainPage = () => {
     const { data, isLoading  } = useGetPhotosQuery(50);
     const [search, setSearch] = useState('');
-    const [debouncedSearch, setDebouncedSearch] = useState('');
-    const [cards, setCards] = useState<Photo[] | undefined>();
-    const dispatch = useAppDispatch();
+    const cards = useDebounced(data, search);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDebouncedSearch(search);
-        }, 1000);
-    
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, [search]);
-
-    useEffect(() => {
-        if (debouncedSearch) {
-          setCards(data?.filter((el) => el.title.includes(debouncedSearch)));
-          return;
-        }
-        setCards(data);
-        dispatch(setCardsState(data || []));
-    }, [debouncedSearch, data, dispatch]);
 
     if (isLoading) {
         return (
