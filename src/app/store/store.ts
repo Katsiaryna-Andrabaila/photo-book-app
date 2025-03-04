@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { fetchPhotos } from '../api';
 import { setCardsStateSlice } from './cards-reducer';
+import { setFavoritesSlice } from './favorites-reducer';
 
 const setupStore = () =>
     configureStore({
         reducer: {
             cardsState: setCardsStateSlice.reducer,
+            favorites: setFavoritesSlice.reducer,
             [fetchPhotos.reducerPath]: fetchPhotos.reducer,
         },
         middleware: (getDefaultMiddleware) =>

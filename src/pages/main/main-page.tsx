@@ -53,12 +53,7 @@ export const MainPage = () => {
             />
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
                 {cards?.map((el) => (
-                    <Card
-                        key={el.id}
-                        id={el.id}
-                        title={el.title}
-                        url={el.url}
-                    />
+                    <Card key={el.id} card={el} />
                 ))}
             </div>
         </div>
