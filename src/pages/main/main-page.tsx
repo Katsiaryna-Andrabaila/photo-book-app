@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
-import { useDebounced } from "@/shared/hooks";
+import { useDebounced, useObserver } from "@/shared/hooks";
 
 export const MainPage = () => {
-    const { data, isLoading  } = useGetPhotosQuery(50);
+    const [limit, setLimit] = useState(50);
+    const { data, isLoading } = useGetPhotosQuery(limit);
     const [search, setSearch] = useState('');
     const cards = useDebounced(data, search);
+    console.log(limit)
+
+    const loadMore = useCallback(() => {
+        setLimit((prev) => prev + 50);
+    }, []);
+
+    const lastItemRef = useObserver(loadMore);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -37,6 +45,7 @@ export const MainPage = () => {
                     {cards?.map((el) => (
                         <Card key={el.id} card={el} />
                     ))}
+                    {cards?.length && <div ref={lastItemRef} />}
                 </div>
             </DndProvider>
         </div>

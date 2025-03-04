@@ -28,4 +28,4 @@ export const useDebounced = (data: Photo[] | undefined, search: string) => {
     }, [debouncedSearch, data, dispatch]);
 
     return cards;
-}
+};
