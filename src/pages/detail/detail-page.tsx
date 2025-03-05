@@ -4,11 +4,17 @@ import clsx from "clsx";
 
 import { setFavorites, useAppDispatch, useAppSelector } from "@/app/store";
 import { SvgIcon } from "@/shared/ui";
+import { useGetPhotosQuery } from "@/app/api";
 
 export const DetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const photo = useAppSelector((state) => state.cardsState.cards).find((el) => el.id === Number(id));
+    const limit = useAppSelector((state) => state.limit.limit);
+    const { photo } = useGetPhotosQuery(limit, {
+        selectFromResult: ({ data }) => ({
+            photo: data?.find((photo) => photo.id === Number(id)),
+        }),
+    });
     const favorites = useAppSelector((state) => state.favorites.favorites);
     const dispatch = useAppDispatch();
     const isFavorite = favorites.find((el) => el.id === photo?.id);

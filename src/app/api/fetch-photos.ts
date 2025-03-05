@@ -10,6 +10,7 @@ export const fetchPhotos = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_URL,
     }),
+    keepUnusedDataFor: 300,
     endpoints: (build) => ({
         getPhotos: build.query<Photo[], number>({
             query: (limit) => limit ? `?_limit=${limit}` : '',

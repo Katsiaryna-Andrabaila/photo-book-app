@@ -1,18 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { fetchPhotos } from '../api';
-import { setCardsStateSlice } from './cards-reducer';
 import { setFavoritesSlice } from './favorites-reducer';
+import { setLimitSlice } from './limit-reducer';
 
 const setupStore = () =>
     configureStore({
         reducer: {
-            cardsState: setCardsStateSlice.reducer,
             favorites: setFavoritesSlice.reducer,
+            limit: setLimitSlice.reducer,
             [fetchPhotos.reducerPath]: fetchPhotos.reducer,
         },
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(fetchPhotos.middleware)
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(fetchPhotos.middleware),
     });
 
 export const store = setupStore();

@@ -5,16 +5,18 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useGetPhotosQuery } from "@/app/api";
 import { Card } from "@/entities";
 import { useDebounced, useObserver } from "@/shared/hooks";
+import { setLimit, useAppDispatch, useAppSelector } from "@/app/store";
 
 export const MainPage = () => {
-    const [limit, setLimit] = useState(50);
+    const limit = useAppSelector((state) => state.limit.limit);
     const { data, isLoading } = useGetPhotosQuery(limit);
     const [search, setSearch] = useState('');
     const cards = useDebounced(data, search);
+    const dispatch = useAppDispatch();
 
     const loadMore = useCallback(() => {
-        setLimit((prev) => prev + 50);
-    }, []);
+        dispatch(setLimit(limit + 50));
+    }, [dispatch, limit]);
 
     const lastItemRef = useObserver(loadMore);
 
