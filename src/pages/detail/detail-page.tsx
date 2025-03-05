@@ -48,7 +48,7 @@ export const DetailPage = () => {
                     onClick={handleFavorites}
                 />
             </div>
-            <div className="relative w-full h-70 sm:h-100 overflow-hidden border border-gray-300">
+            <div className="relative flex justify-center w-full overflow-hidden border border-gray-300">
                 <span
                   className="absolute top-0 left-0 z-[-1] w-full h-full opacity-90 blur-lg"
                   style={{
@@ -58,7 +58,7 @@ export const DetailPage = () => {
                 <img
                     src={photo?.thumbnailUrl || ''}
                     alt={`image ${id}`}
-                    className="w-full h-full object-contain"
+                    className="object-contain"
                 />
             </div>
             <p className="text-center text-gray-700 dark:text-gray-200">

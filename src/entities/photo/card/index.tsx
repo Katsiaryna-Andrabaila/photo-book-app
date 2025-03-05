@@ -58,7 +58,7 @@ export const Card = ({ card, index, moveCard }: CardProps) => {
         <Link
             ref={ref}
             to={`/detail/${card.id}`}
-            className="flex flex-col gap-2 h-50 sm:h-70 border border-gray-300 py-2
+            className="flex flex-col gap-2 h-50 sm:h-70 border border-gray-300 pb-2
                       transform hover:scale-102 transition-all duration-300 ease"
         >
             <img
