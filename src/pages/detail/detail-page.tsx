@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import clsx from "clsx";
 
@@ -9,12 +9,16 @@ import { useGetPhotosQuery } from "@/app/api";
 export const DetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+
     const limit = useAppSelector((state) => state.limit.limit);
-    const { photo } = useGetPhotosQuery(limit, {
-        selectFromResult: ({ data }) => ({
+    const { photo, isLoading, isUninitialized } = useGetPhotosQuery(limit, {
+        selectFromResult: ({ data, isLoading, isUninitialized }) => ({
             photo: data?.find((photo) => photo.id === Number(id)),
+            isLoading,
+            isUninitialized,
         }),
     });
+
     const favorites = useAppSelector((state) => state.favorites.favorites);
     const dispatch = useAppDispatch();
     const isFavorite = favorites.find((el) => el.id === photo?.id);
@@ -28,11 +32,7 @@ export const DetailPage = () => {
         }
     }, [dispatch, favorites, photo, isFavorite]);
 
-    useEffect(() => {
-        if (!photo) {
-            navigate('/404');
-        }
-    }, [photo, navigate]);
+    if (!isUninitialized && !isLoading && !photo) navigate('/404');
     
     return (
         <div className="flex flex-col gap-4 w-9/10 mx-auto mt-20 mb-17">
