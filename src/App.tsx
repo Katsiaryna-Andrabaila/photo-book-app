@@ -4,17 +4,11 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { AppRouter } from './app/router/app-router';
 import { store } from './app/store';
+import { FallbackRender } from './shared/ui';
 
 function App() {
   return (
-    <ErrorBoundary fallbackRender={
-        ({ error }) => (
-            <div className="w-screen mx-4 text-center text-gray-700 text-2xl">
-                Something went wrong:
-                <pre className="mt-2 text-red-500">{error.message}</pre>
-            </div>
-        )
-    }>
+    <ErrorBoundary fallbackRender={FallbackRender}>
         <Provider store={store}>
             <BrowserRouter>
                 <AppRouter />
