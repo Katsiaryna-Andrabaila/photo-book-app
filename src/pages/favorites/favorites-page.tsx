@@ -16,6 +16,12 @@ export const FavoritesPage = () => {
         dispatch(setFavorites(updatedCards));
     }, [favorites, dispatch]);
 
+    if (!favorites.length) return (
+        <p className="w-dvw mt-20 mb-17 text-center text-gray-700 dark:text-gray-200 text-3xl">
+            You have no favorites yet.
+        </p>
+    );
+
     return (
         <DndProvider backend={HTML5Backend}>
             <div className="flex flex-col gap-4 w-9/10 min-h-dvh mx-auto mt-20 mb-17">
