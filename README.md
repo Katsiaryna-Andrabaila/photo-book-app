@@ -1,5 +1,7 @@
 ## Photo Book App - React Developer Exercise
 
+### [Link to the task](https://github.com/ARG-Software/Code-Exercise-Frontend)
+
 
 ### Met requirements:
 
